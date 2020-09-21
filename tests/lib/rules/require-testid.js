@@ -55,6 +55,11 @@ ruleTester.run("require-testid", rule, {
         },
         {
             filename: 'test.vue',
+            code: '<template><button data-testid></button></template>',
+            errors: [ERROR_MSG_MISSING_TESTID_VALUE]
+        },
+        {
+            filename: 'test.vue',
             code: '<template><button data-testid=""></button></template>',
             errors: [ERROR_MSG_MISSING_TESTID_VALUE]
         },
@@ -62,6 +67,11 @@ ruleTester.run("require-testid", rule, {
             filename: 'test.vue',
             code: '<template><input /></template>',
             errors: [ERROR_MSG_MISSING_TESTID_KEY]
+        },
+        {
+            filename: 'test.vue',
+            code: '<template><input data-testid /></template>',
+            errors: [ERROR_MSG_MISSING_TESTID_VALUE]
         },
         {
             filename: 'test.vue',
@@ -75,6 +85,11 @@ ruleTester.run("require-testid", rule, {
         },
         {
             filename: 'test.vue',
+            code: '<template><select data-testid></select></template>',
+            errors: [ERROR_MSG_MISSING_TESTID_VALUE]
+        },
+        {
+            filename: 'test.vue',
             code: '<template><select data-testid=""></select></template>',
             errors: [ERROR_MSG_MISSING_TESTID_VALUE]
         },
@@ -82,6 +97,11 @@ ruleTester.run("require-testid", rule, {
             filename: 'test.vue',
             code: '<template><textarea></textarea></template>',
             errors: [ERROR_MSG_MISSING_TESTID_KEY]
+        },
+        {
+            filename: 'test.vue',
+            code: '<template><textarea data-testid></textarea></template>',
+            errors: [ERROR_MSG_MISSING_TESTID_VALUE]
         },
         {
             filename: 'test.vue',
