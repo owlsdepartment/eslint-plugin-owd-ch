@@ -24,7 +24,7 @@ const {
 const ruleTester = new RuleTester({
     parser: require.resolve('vue-eslint-parser'),
     parserOptions: {
-        ecmaVersion: 2016,
+        parser: 'babel-eslint',
     }
 });
 
@@ -61,6 +61,34 @@ ruleTester.run("require-testid", rule, {
         {
             filename: 'test.vue',
             code: `<template><textarea :data-testid="'my-form-textarea'"></textarea></template>`
+        },
+        {
+            filename: 'test.vue',
+            code: `<template>
+                <button
+                class="accordion__toggle"
+                data-testid="accordion-toggle"
+                role="button"
+                tabindex="0"
+                type="button"
+                :aria-expanded="isExpanded.toString()"
+                :aria-label="title"
+                @click.prevent="toggleAccordion"
+            ></template>`,
+        },
+        {
+            filename: 'test.vue',
+            code: `<template>
+                <button
+                class="accordion__toggle"
+                role="button"
+                tabindex="0"
+                type="button"
+                :aria-expanded="isExpanded.toString()"
+                :aria-label="title"
+                :data-testid="'accordion-toggle'"
+                @click.prevent="toggleAccordion"
+            ></template>`,
         },
     ],
     invalid: [
@@ -162,6 +190,66 @@ ruleTester.run("require-testid", rule, {
         {
             filename: 'test.vue',
             code: '<template><textarea :data-testid=""></textarea></template>',
+            errors: [ERROR_MSG_MISSING_TESTID_VALUE]
+        },
+        {
+            filename: 'test.vue',
+            code: `<template>
+                <button
+                class="accordion__toggle"
+                data-testid
+                role="button"
+                tabindex="0"
+                type="button"
+                :aria-expanded="isExpanded.toString()"
+                :aria-label="title"
+                @click.prevent="toggleAccordion"
+            ></template>`,
+            errors: [ERROR_MSG_MISSING_TESTID_VALUE]
+        },
+        {
+            filename: 'test.vue',
+            code: `<template>
+                <button
+                class="accordion__toggle"
+                :data-testid
+                role="button"
+                tabindex="0"
+                type="button"
+                :aria-expanded="isExpanded.toString()"
+                :aria-label="title"
+                @click.prevent="toggleAccordion"
+            ></template>`,
+            errors: [ERROR_MSG_MISSING_TESTID_VALUE]
+        },
+        {
+            filename: 'test.vue',
+            code: `<template>
+                <button
+                class="accordion__toggle"
+                data-testid=""
+                role="button"
+                tabindex="0"
+                type="button"
+                :aria-expanded="isExpanded.toString()"
+                :aria-label="title"
+                @click.prevent="toggleAccordion"
+            ></template>`,
+            errors: [ERROR_MSG_MISSING_TESTID_VALUE]
+        },
+        {
+            filename: 'test.vue',
+            code: `<template>
+                <button
+                class="accordion__toggle"
+                :data-testid=""
+                role="button"
+                tabindex="0"
+                type="button"
+                :aria-expanded="isExpanded.toString()"
+                :aria-label="title"
+                @click.prevent="toggleAccordion"
+            ></template>`,
             errors: [ERROR_MSG_MISSING_TESTID_VALUE]
         },
     ]
