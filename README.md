@@ -44,7 +44,4 @@ Then configure the rules you want to use under the rules section.
 
 * Fill in provided rules here
 
-
-
-
-
+`owd-ch/require-testid`: Require `data-testid` with form elements
