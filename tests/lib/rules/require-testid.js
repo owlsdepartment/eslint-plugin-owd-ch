@@ -90,6 +90,19 @@ ruleTester.run("require-testid", rule, {
                 @click.prevent="toggleAccordion"
             ></template>`,
         },
+        {
+            filename: 'test.vue',
+            code: `<template>
+                <button
+                class="language-button"
+                :class="{ 'language-button--is-highlighted': isCurrent }"
+                :data-testid="testId"
+                :disabled="isDisabled"
+                @click="onClick">
+                    {{ language.display_name }}
+                </button>
+            </template>`
+        }
     ],
     invalid: [
         {
