@@ -78,30 +78,45 @@ ruleTester.run("require-testid", rule, {
         },
         {
             filename: 'test.vue',
-            code: `<template>
-                <button
-                class="accordion__toggle"
-                role="button"
-                tabindex="0"
-                type="button"
-                :aria-expanded="isExpanded.toString()"
-                :aria-label="title"
-                :data-testid="'accordion-toggle'"
-                @click.prevent="toggleAccordion"
-            ></template>`,
+            code: `
+                <template>
+                    <button
+                    class="accordion__toggle"
+                    role="button"
+                    tabindex="0"
+                    type="button"
+                    :aria-expanded="isExpanded.toString()"
+                    :aria-label="title"
+                    :data-testid="'accordion-toggle'"
+                    @click.prevent="toggleAccordion"
+                ></template>`,
         },
         {
             filename: 'test.vue',
-            code: `<template>
-                <button
-                class="language-button"
-                :class="{ 'language-button--is-highlighted': isCurrent }"
-                :data-testid="testId"
-                :disabled="isDisabled"
-                @click="onClick">
+            code: `
+                <template>
+                    <button
+                    class="language-button"
+                    :class="{ 'language-button--is-highlighted': isCurrent }"
+                    :data-testid="testId"
+                    :disabled="isDisabled"
+                    @click="onClick"
+                >
                     {{ language.display_name }}
-                </button>
-            </template>`
+                    </button>
+                </template>`
+        },
+        {
+            filename: 'test.vue',
+            code: `
+                <template>
+                    <span
+                        :data-testid="testId"
+                        @click="onClick"
+                    >
+                        {{ language.display_name }}
+                    </span>
+                </template>`
         }
     ],
     invalid: [
@@ -263,6 +278,31 @@ ruleTester.run("require-testid", rule, {
                 :aria-label="title"
                 @click.prevent="toggleAccordion"
             ></template>`,
+            errors: [ERROR_MSG_MISSING_TESTID_VALUE]
+        },
+        {
+            filename: 'test.vue',
+            code: `
+                <template>
+                    <span
+                        @click="onClick"
+                    >
+                        {{ language.display_name }}
+                    </span>
+                </template>`,
+            errors: [ERROR_MSG_MISSING_TESTID_KEY]
+        },
+        {
+            filename: 'test.vue',
+            code: `
+                <template>
+                    <span
+                        :data-testid
+                        @click="onClick"
+                    >
+                        {{ language.display_name }}
+                    </span>
+                </template>`,
             errors: [ERROR_MSG_MISSING_TESTID_VALUE]
         },
     ]
