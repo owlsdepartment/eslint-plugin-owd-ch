@@ -1,5 +1,5 @@
 /**
- * @fileoverview Require data-testid attribute on interactive elements
+ * @fileoverview Require ${ATTR_TESTID} attribute on interactive elements
  * @author jędrzej
  */
 "use strict";
@@ -17,6 +17,7 @@ RuleTester = require("eslint").RuleTester;
 //------------------------------------------------------------------------------
 
 const {
+    ATTR_TESTID,
     ERROR_MSG_MISSING_TESTID_KEY,
     ERROR_MSG_MISSING_TESTID_VALUE,
 } = require('../../../data')
@@ -32,42 +33,42 @@ ruleTester.run("require-testid", rule, {
     valid: [
         {
             filename: 'test.vue',
-            code: '<template><button data-testid="my-form-button"></button></template>'
+            code: `<template><button ${ATTR_TESTID}="my-form-button"></button></template>`
         },
         {
             filename: 'test.vue',
-            code: '<template><input data-testid="my-form-input" /></template>'
+            code: `<template><input ${ATTR_TESTID}="my-form-input" /></template>`
         },
         {
             filename: 'test.vue',
-            code: '<template><select data-testid="my-form-select"></select></template>'
+            code: `<template><select ${ATTR_TESTID}="my-form-select"></select></template>`
         },
         {
             filename: 'test.vue',
-            code: '<template><textarea data-testid="my-form-textarea"></textarea></template>'
+            code: `<template><textarea ${ATTR_TESTID}="my-form-textarea"></textarea></template>`
         },
         {
             filename: 'test.vue',
-            code: `<template><button :data-testid="'my-form-button'"></button></template>`
+            code: `<template><button :${ATTR_TESTID}="'my-form-button'"></button></template>`
         },
         {
             filename: 'test.vue',
-            code: `<template><input :data-testid="'my-form-input'" /></template>`
+            code: `<template><input :${ATTR_TESTID}="'my-form-input'" /></template>`
         },
         {
             filename: 'test.vue',
-            code: `<template><select :data-testid="'my-form-select'"></select></template>`
+            code: `<template><select :${ATTR_TESTID}="'my-form-select'"></select></template>`
         },
         {
             filename: 'test.vue',
-            code: `<template><textarea :data-testid="'my-form-textarea'"></textarea></template>`
+            code: `<template><textarea :${ATTR_TESTID}="'my-form-textarea'"></textarea></template>`
         },
         {
             filename: 'test.vue',
             code: `<template>
                 <button
                 class="accordion__toggle"
-                data-testid="accordion-toggle"
+                ${ATTR_TESTID}="accordion-toggle"
                 role="button"
                 tabindex="0"
                 type="button"
@@ -87,7 +88,7 @@ ruleTester.run("require-testid", rule, {
                     type="button"
                     :aria-expanded="isExpanded.toString()"
                     :aria-label="title"
-                    :data-testid="'accordion-toggle'"
+                    :${ATTR_TESTID}="'accordion-toggle'"
                     @click.prevent="toggleAccordion"
                 ></template>`,
         },
@@ -98,7 +99,7 @@ ruleTester.run("require-testid", rule, {
                     <button
                     class="language-button"
                     :class="{ 'language-button--is-highlighted': isCurrent }"
-                    :data-testid="testId"
+                    :${ATTR_TESTID}="testId"
                     :disabled="isDisabled"
                     @click="onClick"
                 >
@@ -111,7 +112,7 @@ ruleTester.run("require-testid", rule, {
             code: `
                 <template>
                     <span
-                        :data-testid="testId"
+                        :${ATTR_TESTID}="testId"
                         @click="onClick"
                     >
                         {{ language.display_name }}
@@ -122,102 +123,102 @@ ruleTester.run("require-testid", rule, {
     invalid: [
         {
             filename: 'test.vue',
-            code: '<template><button></button></template>',
+            code: `<template><button></button></template>`,
             errors: [ERROR_MSG_MISSING_TESTID_KEY]
         },
         {
             filename: 'test.vue',
-            code: '<template><button data-testid></button></template>',
+            code: `<template><button ${ATTR_TESTID}></button></template>`,
             errors: [ERROR_MSG_MISSING_TESTID_VALUE]
         },
         {
             filename: 'test.vue',
-            code: '<template><button data-testid=""></button></template>',
+            code: `<template><button ${ATTR_TESTID}=""></button></template>`,
             errors: [ERROR_MSG_MISSING_TESTID_VALUE]
         },
         {
             filename: 'test.vue',
-            code: '<template><button :data-testid></button></template>',
+            code: `<template><button :${ATTR_TESTID}></button></template>`,
             errors: [ERROR_MSG_MISSING_TESTID_VALUE]
         },
         {
             filename: 'test.vue',
-            code: '<template><button :data-testid=""></button></template>',
+            code: `<template><button :${ATTR_TESTID}=""></button></template>`,
             errors: [ERROR_MSG_MISSING_TESTID_VALUE]
         },
         {
             filename: 'test.vue',
-            code: '<template><input /></template>',
+            code: `<template><input /></template>`,
             errors: [ERROR_MSG_MISSING_TESTID_KEY]
         },
         {
             filename: 'test.vue',
-            code: '<template><input data-testid /></template>',
+            code: `<template><input ${ATTR_TESTID} /></template>`,
             errors: [ERROR_MSG_MISSING_TESTID_VALUE]
         },
         {
             filename: 'test.vue',
-            code: '<template><input data-testid="" /></template>',
+            code: `<template><input ${ATTR_TESTID}="" /></template>`,
             errors: [ERROR_MSG_MISSING_TESTID_VALUE]
         },
         {
             filename: 'test.vue',
-            code: '<template><input :data-testid /></template>',
+            code: `<template><input :${ATTR_TESTID} /></template>`,
             errors: [ERROR_MSG_MISSING_TESTID_VALUE]
         },
         {
             filename: 'test.vue',
-            code: '<template><input :data-testid="" /></template>',
+            code: `<template><input :${ATTR_TESTID}="" /></template>`,
             errors: [ERROR_MSG_MISSING_TESTID_VALUE]
         },
         {
             filename: 'test.vue',
-            code: '<template><select></select></template>',
+            code: `<template><select></select></template>`,
             errors: [ERROR_MSG_MISSING_TESTID_KEY]
         },
         {
             filename: 'test.vue',
-            code: '<template><select data-testid></select></template>',
+            code: `<template><select ${ATTR_TESTID}></select></template>`,
             errors: [ERROR_MSG_MISSING_TESTID_VALUE]
         },
         {
             filename: 'test.vue',
-            code: '<template><select data-testid=""></select></template>',
+            code: `<template><select ${ATTR_TESTID}=""></select></template>`,
             errors: [ERROR_MSG_MISSING_TESTID_VALUE]
         },
         {
             filename: 'test.vue',
-            code: '<template><select :data-testid></select></template>',
+            code: `<template><select :${ATTR_TESTID}></select></template>`,
             errors: [ERROR_MSG_MISSING_TESTID_VALUE]
         },
         {
             filename: 'test.vue',
-            code: '<template><select :data-testid=""></select></template>',
+            code: `<template><select :${ATTR_TESTID}=""></select></template>`,
             errors: [ERROR_MSG_MISSING_TESTID_VALUE]
         },
         {
             filename: 'test.vue',
-            code: '<template><textarea></textarea></template>',
+            code: `<template><textarea></textarea></template>`,
             errors: [ERROR_MSG_MISSING_TESTID_KEY]
         },
         {
             filename: 'test.vue',
-            code: '<template><textarea data-testid></textarea></template>',
+            code: `<template><textarea ${ATTR_TESTID}></textarea></template>`,
             errors: [ERROR_MSG_MISSING_TESTID_VALUE]
         },
         {
             filename: 'test.vue',
-            code: '<template><textarea data-testid=""></textarea></template>',
+            code: `<template><textarea ${ATTR_TESTID}=""></textarea></template>`,
             errors: [ERROR_MSG_MISSING_TESTID_VALUE]
         },
         {
             filename: 'test.vue',
-            code: '<template><textarea :data-testid></textarea></template>',
+            code: `<template><textarea :${ATTR_TESTID}></textarea></template>`,
             errors: [ERROR_MSG_MISSING_TESTID_VALUE]
         },
         {
             filename: 'test.vue',
-            code: '<template><textarea :data-testid=""></textarea></template>',
+            code: `<template><textarea :${ATTR_TESTID}=""></textarea></template>`,
             errors: [ERROR_MSG_MISSING_TESTID_VALUE]
         },
         {
@@ -225,7 +226,7 @@ ruleTester.run("require-testid", rule, {
             code: `<template>
                 <button
                 class="accordion__toggle"
-                data-testid
+                ${ATTR_TESTID}
                 role="button"
                 tabindex="0"
                 type="button"
@@ -240,7 +241,7 @@ ruleTester.run("require-testid", rule, {
             code: `<template>
                 <button
                 class="accordion__toggle"
-                :data-testid
+                :${ATTR_TESTID}
                 role="button"
                 tabindex="0"
                 type="button"
@@ -255,7 +256,7 @@ ruleTester.run("require-testid", rule, {
             code: `<template>
                 <button
                 class="accordion__toggle"
-                data-testid=""
+                ${ATTR_TESTID}=""
                 role="button"
                 tabindex="0"
                 type="button"
@@ -270,7 +271,7 @@ ruleTester.run("require-testid", rule, {
             code: `<template>
                 <button
                 class="accordion__toggle"
-                :data-testid=""
+                :${ATTR_TESTID}=""
                 role="button"
                 tabindex="0"
                 type="button"
@@ -297,7 +298,7 @@ ruleTester.run("require-testid", rule, {
             code: `
                 <template>
                     <span
-                        :data-testid
+                        :${ATTR_TESTID}
                         @click="onClick"
                     >
                         {{ language.display_name }}
