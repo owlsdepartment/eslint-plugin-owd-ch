@@ -1,5 +1,5 @@
 /**
- * @fileoverview Require data-testid attribute on form elements
+ * @fileoverview Require data-testid attribute on interactive elements
  * @author jędrzej
  */
 "use strict";
