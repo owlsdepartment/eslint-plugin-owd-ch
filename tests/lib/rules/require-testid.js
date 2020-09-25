@@ -20,6 +20,7 @@ const {
     ATTR_TESTID,
     ERROR_MSG_MISSING_TESTID_KEY,
     ERROR_MSG_MISSING_TESTID_VALUE,
+    PROP_TESTID,
 } = require('../../../data')
 
 const ruleTester = new RuleTester({
@@ -112,7 +113,19 @@ ruleTester.run("require-testid", rule, {
             code: `
                 <template>
                     <span
-                        :${ATTR_TESTID}="testId"
+                        :${PROP_TESTID}="testId"
+                        @click="onClick"
+                    >
+                        {{ language.display_name }}
+                    </span>
+                </template>`
+        },
+        {
+            filename: 'test.vue',
+            code: `
+                <template>
+                    <span
+                        :${PROP_TESTID}="testId"
                         @click="onClick"
                     >
                         {{ language.display_name }}
