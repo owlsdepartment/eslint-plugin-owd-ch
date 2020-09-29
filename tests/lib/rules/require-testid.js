@@ -131,7 +131,23 @@ ruleTester.run("require-testid", rule, {
                         {{ language.display_name }}
                     </span>
                 </template>`
+        },
+        {
+            filename: 'test.vue',
+            code: `
+            <base-button
+                v-if="showCompleteGoalButton"
+                light
+                class="goal-preview__complete-goal"
+                :${PROP_TESTID}="dataTestid"
+                :isLoading="isGoalCompleting"
+                @click="onCompleteGoal"
+            >
+                {{ $t(options.slug) }}
+            </base-button>`
         }
+
+
     ],
     invalid: [
         {
