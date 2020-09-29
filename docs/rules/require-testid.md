@@ -1,6 +1,6 @@
-# Require data-testid attribute on form elements (require-testid)
+# Require data-testid attribute on interactive elements (require-testid)
 
-Intended for enforcing reliable selectors to clickable elements
+Intended for enforcing reliable selectors to interactive elements
 
 
 ## Rule Details

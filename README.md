@@ -42,4 +42,4 @@ Then configure the rules you want to use under the rules section.
 
 ## Supported Rules
 
-`owd-ch/require-testid`: Require `data-testid` with form elements
+`owd-ch/require-testid`: Require `data-testid` with interactive elements
